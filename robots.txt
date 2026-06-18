@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /*?*view=admin
+Disallow: /*?*admin=true
+
+Sitemap: https://ridehard.co/sitemap.xml
