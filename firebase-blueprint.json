@@ -1,0 +1,96 @@
+{
+  "entities": {
+    "Vehicle": {
+      "title": "Vehicle",
+      "description": "Hardcore motorcycle specifications and availability metrics for the fleet list.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique motorcycle ID." },
+        "name": { "type": "string", "description": "Display name of the machine." },
+        "modelName": { "type": "string", "description": "Specific Royal Enfield variant." },
+        "groundClearance": { "type": "integer", "description": "Ground clearance in millimeters." },
+        "torqueRating": { "type": "string", "description": "Maximum torque under extreme high-altitude conditions." },
+        "crashGuardSetup": { "type": "string", "description": "Details of steel armor and panels." },
+        "dailyRate": { "type": "integer", "description": "Daily rental fee in INR." },
+        "imageUrl": { "type": "string", "description": "Absolute URL to rugged profile photo." },
+        "blockedDates": {
+          "type": "array",
+          "description": "Set of calendar dates in YYYY-MM-DD format on which this unit is locked out."
+        }
+      },
+      "required": ["id", "name", "modelName", "groundClearance", "torqueRating", "crashGuardSetup", "dailyRate", "imageUrl", "blockedDates"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Chronological manifest records of active expedition bookings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique transaction booking ID." },
+        "customerName": { "type": "string", "description": "Expedition rider full name." },
+        "customerEmail": { "type": "string", "description": "Rider contact email." },
+        "customerPhone": { "type": "string", "description": "Rider satellite/mobile phone." },
+        "vehicleId": { "type": "string", "description": "Selected machine profile reference." },
+        "vehicleName": { "type": "string", "description": "Display name of the reserved bike." },
+        "startDate": { "type": "string", "description": "Expedition commencement date (YYYY-MM-DD)." },
+        "endDate": { "type": "string", "description": "Expedition completion date (YYYY-MM-DD)." },
+        "totalCost": { "type": "integer", "description": "Calculated cost of expedition rental." },
+        "status": {
+          "type": "string",
+          "enum": ["Pending Verification", "Confirmed"],
+          "description": "Approval state of the rental fee manifest."
+        },
+        "paymentTxn": { "type": "string", "description": "UPI transaction ID or bank transfer reference." },
+        "createdAt": { "type": "string", "description": "Creation timestamp in UTC." }
+      },
+      "required": ["id", "customerName", "customerEmail", "customerPhone", "vehicleId", "vehicleName", "startDate", "endDate", "totalCost", "status", "paymentTxn", "createdAt"]
+    },
+    "JournalEntry": {
+      "title": "JournalEntry",
+      "description": "CMS updates of scouts tracking weather, trails, and mud hazards.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Journal entry sequence tracker." },
+        "title": { "type": "string", "description": "Journal core warning headline." },
+        "territory": { "type": "string", "description": "Specific route or pass (e.g. Sela Pass)." },
+        "warning": { "type": "string", "description": "Terrain danger rating or guide category." },
+        "excerpt": { "type": "string", "description": "Direct brief summary card." },
+        "bodyText": { "type": "string", "description": "Exhaustive field log detail." },
+        "imageUrl": { "type": "string", "description": "Reference view of the location." },
+        "createdAt": { "type": "string", "description": "Scout dispatch date." }
+      },
+      "required": ["id", "title", "territory", "warning", "excerpt", "bodyText", "imageUrl", "createdAt"]
+    },
+    "RiderLog": {
+      "title": "RiderLog",
+      "description": "Authentic testimonial feedback left by team survivors.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Review sequence." },
+        "riderName": { "type": "string", "description": "Survivor moniker." },
+        "route": { "type": "string", "description": "Conquered loop route name." },
+        "feedback": { "type": "string", "description": "Raw, honest survival logs." },
+        "rating": { "type": "integer", "description": "Rating score out of 5." },
+        "date": { "type": "string", "description": "Ride date." }
+      },
+      "required": ["id", "riderName", "route", "feedback", "rating", "date"]
+    }
+  },
+  "firestore": {
+    "vehicles": {
+      "schema": "Vehicle",
+      "description": "The active motorcycle fleet ledger."
+    },
+    "bookings": {
+      "schema": "Booking",
+      "description": "All scheduled rental operations manifest."
+    },
+    "journals": {
+      "schema": "JournalEntry",
+      "description": "Live route updates from command scouts."
+    },
+    "rider_logs": {
+      "schema": "RiderLog",
+      "description": "Rider feedback chronicle records."
+    }
+  }
+}

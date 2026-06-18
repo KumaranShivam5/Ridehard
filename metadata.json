@@ -1,0 +1,6 @@
+{
+  "name": "RideHard Expedition Outpost",
+  "description": "Tactical motorcycle outfitting, fleet management, scouting bulletins, and verified date-locking manifest operations for extreme Northeast India mountain terrain.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

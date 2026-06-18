@@ -1,0 +1,148 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable global security helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && (request.auth.token.email_verified == true || request.auth.token.firebase.sign_in_provider == 'anonymous');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == "kumaranshivam57@gmail.com" && request.auth.token.email_verified == true) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Vehicle entity validation
+    function isValidVehicle(v) {
+      return v.id is string && v.id.size() <= 128
+        && v.name is string && v.name.size() <= 200
+        && v.modelName is string && v.modelName.size() <= 200
+        && v.groundClearance is int && v.groundClearance >= 0 && v.groundClearance <= 1000
+        && v.torqueRating is string && v.torqueRating.size() <= 100
+        && v.crashGuardSetup is string && v.crashGuardSetup.size() <= 500
+        && v.dailyRate is int && v.dailyRate > 0 && v.dailyRate <= 100000
+        && v.imageUrl is string && v.imageUrl.size() <= 1024
+        && v.blockedDates is list && v.blockedDates.size() <= 365
+        && (!('status' in v) || (v.status is string && v.status.size() <= 64));
+    }
+
+    // Booking entity validation
+    function isValidBooking(b) {
+      return b.id is string && b.id.size() <= 128
+        && b.customerName is string && b.customerName.size() <= 128
+        && (!('customerEmail' in b) || (b.customerEmail is string && b.customerEmail.size() <= 128))
+        && b.customerPhone is string && b.customerPhone.size() <= 32
+        && b.vehicleId is string && b.vehicleId.size() <= 128
+        && b.vehicleName is string && b.vehicleName.size() <= 200
+        && b.startDate is string && b.startDate.matches('^\\d{4}-\\d{2}-\\d{2}$')
+        && b.endDate is string && b.endDate.matches('^\\d{4}-\\d{2}-\\d{2}$')
+        && b.totalCost is int && b.totalCost >= 0
+        && (!('advancePaid' in b) || (b.advancePaid is int && b.advancePaid >= 0))
+        && (!('balancePending' in b) || (b.balancePending is int && b.balancePending >= 0))
+        && (!('securityDeposit' in b) || (b.securityDeposit is int && b.securityDeposit >= 0))
+        && b.status is string && (b.status == 'Pending Verification' || b.status == 'Confirmed')
+        && b.paymentTxn is string && b.paymentTxn.size() <= 128
+        && (!('createdAt' in b) || (b.createdAt is string && b.createdAt.size() <= 128))
+        && (!('verificationLogs' in b) || b.verificationLogs is map);
+    }
+
+    // JournalEntry validation
+    function isValidJournal(j) {
+      return j.id is string && j.id.size() <= 128
+        && j.title is string && j.title.size() <= 200
+        && j.territory is string && j.territory.size() <= 100
+        && j.warning is string && j.warning.size() <= 100
+        && j.excerpt is string && j.excerpt.size() <= 500
+        && j.bodyText is string && j.bodyText.size() <= 10000
+        && j.imageUrl is string && j.imageUrl.size() <= 1024
+        && (!('createdAt' in j) || (j.createdAt is string && j.createdAt.size() <= 100));
+    }
+
+    // RiderLog validation
+    function isValidRiderLog(l) {
+      return l.id is string && l.id.size() <= 128
+        && l.riderName is string && l.riderName.size() <= 100
+        && l.route is string && l.route.size() <= 100
+        && l.feedback is string && l.feedback.size() <= 2000
+        && l.rating is int && l.rating >= 1 && l.rating <= 5
+        && l.date is string && l.date.size() <= 32;
+    }
+
+    // Itinerary validation
+    function isValidItinerary(i) {
+      return i.id is string && i.id.size() <= 128
+        && i.title is string
+        && i.days is string
+        && i.mapImageUrl is string
+        && i.thingsToDo is list
+        && i.suggestedVehicle is string
+        && i.bestTimeToVisit is string
+        && i.typicalWeather is string
+        && i.createdAt is string;
+    }
+
+    // Vehicles collection
+    match /vehicles/{vehicleId} {
+      allow read, list: if true;
+      allow create, update: if isValidId(vehicleId) && isValidVehicle(incoming());
+      allow delete: if true;
+    }
+
+    // Bookings collection
+    match /bookings/{bookingId} {
+      allow read, list: if true;
+      allow create, update: if isValidId(bookingId) && isValidBooking(incoming());
+      allow delete: if true;
+    }
+
+    // Journals collection
+    match /journals/{journalId} {
+      allow read, list: if true;
+      allow create, update: if isValidId(journalId) && isValidJournal(incoming());
+      allow delete: if true;
+    }
+
+    // Rider Logs collection
+    match /rider_logs/{logId} {
+      allow read, list: if true;
+      allow create, update: if isValidId(logId) && isValidRiderLog(incoming());
+      allow delete: if true;
+    }
+
+    // Itineraries collection
+    match /itineraries/{itineraryId} {
+      allow read, list: if true;
+      allow create, update: if isValidId(itineraryId) && isValidItinerary(incoming());
+      allow delete: if true;
+    }
+
+    // Admins path
+    match /admins/{adminId} {
+      allow read, list: if true;
+      allow write: if true;
+    }
+  }
+}
