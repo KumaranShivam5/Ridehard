@@ -58,28 +58,28 @@ export default function Header({ currentUser, onLogin, onLogout, activeView, set
         </div>
 
         {/* Tactical Actions and User profile login status - Desktop Only */}
-        <div className="hidden md:flex flex-wrap items-center justify-center gap-2">
+        <div className="hidden lg:flex items-center justify-end gap-1.5 xl:gap-3 whitespace-nowrap overflow-hidden">
           <button
             onClick={onVerifyBooking}
-            className="px-4 py-2 text-xs font-bold bg-oxide text-white hover:bg-stone-105 transition-colors uppercase rounded-none border-2 border-stone-700 shadow-[2px_2px_0px_#1C1D1F] cursor-pointer flex items-center gap-1.5 min-h-[44px]"
+            className="px-2 xl:px-4 py-2 text-[10px] xl:text-xs font-bold bg-oxide text-white hover:bg-stone-105 transition-colors uppercase rounded-none border-2 border-stone-700 shadow-[2px_2px_0px_#1C1D1F] cursor-pointer flex items-center gap-1.5 min-h-[40px] xl:min-h-[44px]"
           >
             Verify Booking
           </button>
           <a
             href="#why-armor"
-            className="px-4 py-2 text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 block"
+            className="px-2 xl:px-4 py-2 text-[10px] xl:text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 font-bold block flex items-center min-h-[40px] xl:min-h-[44px]"
           >
             Our Advantage
           </a>
           <a
             href="#fleet-grid"
-            className="px-4 py-2 text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 block"
+            className="px-2 xl:px-4 py-2 text-[10px] xl:text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 font-bold block flex items-center min-h-[40px] xl:min-h-[44px]"
           >
             Rental Fleet
           </a>
           <a
             href="#active-journal"
-            className="px-4 py-2 text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 block"
+            className="px-2 xl:px-4 py-2 text-[10px] xl:text-xs font-bold bg-stone-800 text-stone-100 hover:bg-stone-650 transition-colors uppercase rounded-none border-2 border-stone-700 font-bold block flex items-center min-h-[40px] xl:min-h-[44px]"
           >
             Adventure Journal
           </a>
@@ -88,54 +88,55 @@ export default function Header({ currentUser, onLogin, onLogout, activeView, set
           {isAdmin && (
             <button
               onClick={() => setView(activeView === 'admin' ? 'client' : 'admin')}
-              className={`px-4 py-2 text-xs font-bold border-2 rounded-none uppercase cursor-pointer flex items-center gap-1.5 transition-all ${
+              className={`px-2 xl:px-4 py-2 text-[10px] xl:text-xs font-bold border-2 rounded-none uppercase cursor-pointer flex items-center gap-1 transition-all min-h-[40px] xl:min-h-[44px] ${
                 activeView === 'admin'
                   ? 'bg-stone-950 text-oxide border-oxide font-bold'
                   : 'bg-oxide text-white border-oxide hover:bg-stone-100 hover:text-stone-900 border-2'
               }`}
             >
-              <Terminal size={14} />
+              <Terminal size={12} />
               {activeView === 'admin' ? 'User Preview' : 'Admin Panel'}
             </button>
           )}
 
           {/* Core Auth Mechanism for Veteran login */}
           {currentUser ? (
-            <div className="flex items-center gap-2.5 bg-stone-950 border-2 border-stone-800 p-1.5 pr-4 rounded-none">
+            <div className="flex items-center gap-2 bg-stone-950 border-2 border-stone-800 p-1 xl:p-1.5 pr-2 xl:pr-4 rounded-none min-h-[40px] xl:min-h-[44px]">
               {currentUser.photoURL ? (
                 <img
                   src={currentUser.photoURL}
                   alt={currentUser.displayName || 'Explorer'}
-                  className="w-7 h-7 border border-stone-700 rounded-none"
+                  className="w-6 h-6 xl:w-7 xl:h-7 border border-stone-700 rounded-none shrink-0"
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-7 h-7 bg-oxide text-white font-bold flex items-center justify-center border border-stone-750 rounded-none text-xs">
+                <div className="w-6 h-6 xl:w-7 xl:h-7 shrink-0 bg-oxide text-white font-bold flex items-center justify-center border border-stone-750 rounded-none text-[10px] xl:text-xs">
                   E
                 </div>
               )}
-              <div className="flex flex-col text-left font-sans">
-                <span className="text-[10px] font-bold leading-none text-stone-200 max-w-[120px] truncate uppercase">
+              <div className="flex flex-col text-left font-sans shrink-0">
+                <span className="text-[9px] xl:text-[10px] font-bold leading-none text-stone-200 w-16 xl:w-24 truncate uppercase">
                   {currentUser.displayName || 'Guest Explorer'}
                 </span>
-                <span className="text-[9px] text-[#A29F99] scale-[0.9] origin-left truncate max-w-[120px] font-bold">
+                <span className="text-[8px] xl:text-[9px] text-[#A29F99] truncate w-16 xl:w-24 font-bold overflow-hidden mt-0.5">
                   {currentUser.email}
                 </span>
               </div>
               <button
                 onClick={onLogout}
                 title="Sign out of account"
-                className="ml-2 hover:text-oxide transition-colors cursor-pointer text-stone-400 min-h-[44px]"
+                className="ml-0.5 hover:text-oxide transition-colors cursor-pointer text-stone-400"
               >
-                <LogOut size={14} />
+                <LogOut size={12} className="xl:hidden" />
+                <LogOut size={14} className="hidden xl:block" />
               </button>
             </div>
           ) : (
             <button
               onClick={onLogin}
-              className="px-4 py-2 bg-oxide text-white hover:bg-stone-100 hover:text-stone-900 border-2 border-stone-900 rounded-none transition-all flex items-center gap-1 text-xs font-bold shadow-[2px_2px_0px_#1C1D1F] cursor-pointer min-h-[44px]"
+              className="px-2 xl:px-4 py-2 bg-oxide text-white hover:bg-stone-100 hover:text-stone-900 border-2 border-stone-900 rounded-none transition-all flex items-center gap-1 text-[10px] xl:text-xs font-bold shadow-[2px_2px_0px_#1C1D1F] cursor-pointer min-h-[40px] xl:min-h-[44px]"
             >
-              <UserCheck size={14} />
+              <UserCheck size={12} />
               Guest Login
             </button>
           )}

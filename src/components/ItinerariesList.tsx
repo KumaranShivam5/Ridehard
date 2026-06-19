@@ -1,6 +1,7 @@
 import React from 'react';
 import { Itinerary } from '../types.ts';
 import { Map, Calendar, Sun, Navigation, ArrowRight } from 'lucide-react';
+import { SELA_PASS_IMAGE } from '../constants.ts';
 
 interface ItinerariesListProps {
   itineraries: Itinerary[];
@@ -17,7 +18,7 @@ export default function ItinerariesList({ itineraries, onSelectItinerary }: Itin
       bestTimeToVisit: 'March to October',
       suggestedVehicle: 'Himalayan 450',
       typicalWeather: 'Chilly winds, possible snow, unpredictable rain.',
-      mapImageUrl: '/src/assets/images/sela_pass_terrain_1780232444860.png',
+      mapImageUrl: SELA_PASS_IMAGE,
       thingsToDo: [
         'Conquer the icy Sela Pass (13,700 ft)',
         'Visit the historic Tawang Monastery',

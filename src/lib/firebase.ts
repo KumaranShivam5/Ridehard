@@ -2,6 +2,7 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, User as FirebaseUser } from 'firebase/auth';
 import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
+import userAvatarImg from '../assets/images/user_avatar_1781791703214.jpg';
 
 // Detect if we have real credentials
 export const isFirebaseReal = firebaseConfig && firebaseConfig.apiKey && firebaseConfig.apiKey !== 'MOCK_API_KEY';
@@ -85,7 +86,7 @@ export async function triggerGoogleLogin(): Promise<FirebaseUser | null> {
       displayName: 'Captain Shivam',
       email: 'kumaranshivam57@gmail.com',
       emailVerified: true,
-      photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'
+      photoURL: userAvatarImg
     } as any;
     console.info("Logging in with mock admin user in Fallback local state.");
     return mockUser;

@@ -1,6 +1,13 @@
 import React from 'react';
 import { Instagram, Heart, MessageCircle } from 'lucide-react';
 
+import insta1 from '../assets/images/insta_tour_1_1781791533123.jpg';
+import insta2 from '../assets/images/insta_tour_2_1781791548928.jpg';
+import insta3 from '../assets/images/insta_tour_3_1781791562043.jpg';
+import insta4 from '../assets/images/insta_tour_4_1781791582011.jpg';
+import insta5 from '../assets/images/insta_tour_5_1781791595585.jpg';
+import insta6 from '../assets/images/insta_tour_6_1781791610795.jpg';
+
 interface InstagramPost {
   id: string;
   imageUrl: string;
@@ -12,42 +19,42 @@ interface InstagramPost {
 const INSTAGRAM_POSTS: InstagramPost[] = [
   {
     id: 'ig-1',
-    imageUrl: 'https://images.unsplash.com/photo-1609137144814-1e0e47087050?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta1,
     likes: '1,420',
     comments: '88',
     caption: 'Cutting through the shallow river stream approaches on the Himalayan 450. #RideHard #ArunachalPradesh'
   },
   {
     id: 'ig-2',
-    imageUrl: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta2,
     likes: '958',
     comments: '42',
     caption: 'Resting the Scram 411 against the misty high-altitude mountain slopes. Gravel lines for days. #NortheastMotorsport'
   },
   {
     id: 'ig-3',
-    imageUrl: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta3,
     likes: '1,204',
     comments: '67',
     caption: 'The golden hour intercept. Interceptor 650 parked beside the pine woods of Bomdila. #REInterceptor'
   },
   {
     id: 'ig-4',
-    imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta4,
     likes: '1,830',
     comments: '112',
     caption: 'Ascending the steep switchbacks with heavy cloud cover. Sela Pass road is ready! #RideHardNE'
   },
   {
     id: 'ig-5',
-    imageUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta5,
     likes: '745',
     comments: '29',
     caption: 'Mapping out the forest tracks near Ziro valley. Adventure is a state of mind! #MotorcycleDiary'
   },
   {
     id: 'ig-6',
-    imageUrl: 'https://images.unsplash.com/photo-1533240332313-0db49b439ad3?auto=format&fit=crop&q=80&w=500',
+    imageUrl: insta6,
     likes: '1,560',
     comments: '93',
     caption: 'Drenched in river spray and mud. The true test of high-clearance engineering! #RoyalEnfieldHimalayan'

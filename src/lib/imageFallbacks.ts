@@ -1,11 +1,18 @@
+import reHimalayanImg from '../assets/images/re_himalayan_1781791439226.jpg';
+import reScramImg from '../assets/images/re_scram_1781791454194.jpg';
+import reHunterImg from '../assets/images/re_hunter_1781791468880.jpg';
+import hondaActivaImg from '../assets/images/honda_activa_1781791486777.jpg';
+import tvsNtorqImg from '../assets/images/tvs_ntorq_1781791500820.jpg';
+import genericBikeImg from '../assets/images/generic_bike_1781791516299.jpg';
+
 // Pre-curated premium default images based on vehicle type keyword matching
 export const MOTORCYCLE_FALLBACK_IMAGES = {
-  himalayan: 'https://images.unsplash.com/photo-1609137144814-1e0e47087050?auto=format&fit=crop&q=80&w=1000',
-  scram: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80&w=1000',
-  hunter: 'https://images.unsplash.com/photo-1615887023516-9b6bcd559e87?auto=format&fit=crop&q=80&w=1000',
-  activa: 'https://images.unsplash.com/photo-1625121852136-ecfc5a8789cc?auto=format&fit=crop&q=80&w=1000',
-  ntorq: 'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=1000',
-  generic: 'https://images.unsplash.com/photo-1558981403-cc5f9899a28bc?auto=format&fit=crop&q=80&w=1000'
+  himalayan: reHimalayanImg,
+  scram: reScramImg,
+  hunter: reHunterImg,
+  activa: hondaActivaImg,
+  ntorq: tvsNtorqImg,
+  generic: genericBikeImg
 };
 
 /**
